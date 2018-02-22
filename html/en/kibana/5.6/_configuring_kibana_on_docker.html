@@ -15,6 +15,34 @@
     <!-- End of RTP tag -->
     
 
+    <style type="text/css">
+      #swiftype-search{
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 111112;
+      }
+      #swiftype-search .modal-dialog {
+        height: 100%;
+        margin: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0;
+        position: fixed;
+        width: 100%;
+      }
+
+      #swiftype-search .modal-content {
+        background: #f5f5f5;
+        border : 0px none;
+        border-radius: 0;
+        height: auto;
+        min-height: 100%;
+      }
+    </style>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -93,7 +121,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/favicon_16x16.png">
 
 	   
-
+     <!-- <link rel="stylesheet" type="text/css" href="/static/css/main.pkg.min.css"> -->
     <!-- css -->
     <link href="/static/css/main.css" rel="stylesheet">
     
@@ -112,12 +140,12 @@
       // ---------------------------- set language based on browser language --------------------
       var lang = '/'+(navigator.language || navigator.userLanguage).slice(0,2)+'/',
         locales = {
-          '/en/': '/',
-          '/de/': '/de/',
-          '/fr/': '/fr/',
-          '/ja/':'/jp/',
-          '/ko/':'/kr/',
-          '/zh/':'/cn/'
+            '/en/': '/',
+            '/de/': '/de/',
+            '/fr/': '/fr/',
+            '/ja/':'/jp/',
+            '/ko/':'/kr/',
+            '/zh/':'/cn/'
         }
         localepages = ['/','/de/','/fr/','/jp/','/kr/','/cn/','/products','/de/products','/fr/products','/jp/products','/kr/products','/cn/products'],
         locationpath = window.location.pathname,
@@ -201,10 +229,17 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-12395217-16');
     </script>
     <!-- new ga for staging server -->
+
+    <!-- new search implementation -->
+    <div id="swiftype-search" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+    <!-- new search implementation  -->
     
     <!-- Header Section -->
     
@@ -221,6 +256,7 @@
   <div class="container">
     <nav class="navbar">
     <!-- Brand and toggle get grouped for better mobile display -->
+
     <div class="navbar-mobile-header navbar-header mr-20 mr-xs-0">
       <div class="row hidden-sm hidden-md hidden-lg">
         <div class="col-xs-5 hidden-sm hidden-md hidden-lg">
@@ -243,7 +279,7 @@
         <div class="col-xs-5 hidden-sm hidden-md hidden-lg text-right">
           <ul class="menu-m hidden-sm hidden-md hidden-lg">
             <li class=""><a class="icon-contact" href="/contact"></a></li>
-            <li id="searchbar"><a class="button icon" href="#"></a></li>
+            <li id="searchbar"><a class="button icon" href="#" data-toggle="modal" data-target="#swiftype-search"></a></li>
             <li class="lang global-language">
                 
                   
@@ -378,7 +414,7 @@
           <li class="hidden-xs hidden-sm"><a class="btn btn-secondary btn-contact" href="/contact?storm=global-header-en">contact</a></li>
           <!-- ////////////////ends here///////////////-->          
           <li class="hidden-xs hidden-md hidden-lg"><a class="icon-contact" href="/contact?storm=global-header-en"></a></li>
-          <li class="hidden-xs" id="searchbar"><a class="button icon" href="#"></a></li>
+          <li class="hidden-xs" id="searchbar"><a class="button icon" href="#" data-toggle="modal" data-target="#swiftype-search"></a></li>
           <li class="hidden-xs lang global-language">
                 
                   
@@ -644,7 +680,7 @@ Kibana</a>, but it’s
 also possible to use environment variables to define settings.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="docker-bind-mount-config"></a>Bind-mounted configuration<a href="https://github.com/elastic/kibana/edit/5.6/docs/setup/docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>One way to configure Kibana on Docker is to provide <code class="literal">kibana.yml</code> via bind-mounting.
 With <code class="literal">docker-compose</code>, the bind-mount can be specified like this:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-yaml">services:
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.6.7
+    image: docker.elastic.co/kibana/kibana:5.6.8
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="docker-env-config"></a>Environment variable configuration<a href="https://github.com/elastic/kibana/edit/5.6/docs/setup/docker.asciidoc" class="edit_me" title="Edit this page on GitHub" rel="nofollow">edit</a></h3></div></div></div><p>Under Docker, Kibana can be configured via environment variables. When
 the container starts, a helper process checks the environment for variables that
@@ -687,7 +723,7 @@ Kibana setting names.</p><p>Some example translations are shown here:</p><div cl
 <a class="ulink" href="https://www.elastic.co/guide/en/x-pack/5.6/xpack-settings.html" target="_top">X-Pack Settings</a> can be configured
 with this technique.</p><p>These variables can be set with <code class="literal">docker-compose</code> like this:</p><div class="pre_wrapper"><pre class="programlisting prettyprint lang-yaml">services:
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.6.7
+    image: docker.elastic.co/kibana/kibana:5.6.8
     environment:
       SERVER_NAME: kibana.example.org
       ELASTICSEARCH_URL: http://elasticsearch.example.org</pre></div><p>Since environment variables are translated to CLI arguments, they take
@@ -1206,6 +1242,8 @@ with a <a class="link" href="_configuring_kibana_on_docker.html#docker-bind-moun
 </script>
       </section>
     </div>
+
+    
      <script type="text/javascript">
 	var suggestionsUrl = "https://search.elastic.co/suggest";	
 	var localeUrl = '{"relative_url_prefix":"/","code":"en-us","display_code":"en-us","url":"/guide_template"}';
