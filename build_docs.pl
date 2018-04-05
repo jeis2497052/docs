@@ -433,7 +433,7 @@ sub push_changes {
     if ( run qw(git status -s -- ), $build_dir ) {
         build_sitemap($build_dir);
         run qw( git add -A), $build_dir;
-        say "Commiting changes";
+        say "Committing changes";
         run qw(git commit -m), 'Updated docs';
     }
 
@@ -488,7 +488,7 @@ sub check_github_authed {
 
     my $creds = git_creds( 'fill', $fill );
 
-# restart after filling in the creds so that ^C or dieing later doesn't reset creds
+# restart after filling in the creds so that ^C or dying later doesn't reset creds
     if ( $creds =~ /password=\S+/ ) {
         git_creds( 'approve', $creds );
         restart();

@@ -92,7 +92,7 @@ build_docs.pl --doc path/to/index.asciidoc
 ----------------------------
 
 To use simplified aliases for the build commands for each book, see
-`doc_build_aliases.sh`. 
+`doc_build_aliases.sh`.
 
 === Specifying a different output dir
 
@@ -202,7 +202,7 @@ above command will output warnings like:
     ERROR: xref linking to relevance-intro has no generated link text.
 
 NOTE: You should still build the whole book without the `--lenient` parameter
-before commiting, to be sure that you haven't broken any links.
+before committing, to be sure that you haven't broken any links.
 
 [[website]]
 == For the website
